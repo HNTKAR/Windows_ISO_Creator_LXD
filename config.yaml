@@ -1,0 +1,35 @@
+profiles:
+  - develop-net
+config:
+  cloud-init.user-data: |
+    #cloud-config
+    package_upgrade: true
+    apt:
+      sources:
+        go.list:
+          source: "deb https://ppa.launchpadcontent.net/longsleep/golang-backports/ubuntu $RELEASE main"
+          keyid: f6bc817356a3d45e
+    packages:
+      # distrobuilder
+      - golang-go
+      - debootstrap
+      - rsync
+      - gpg
+      - squashfs-tools
+      - git
+      - make
+      # repack-windows
+      - genisoimage
+      - libwin-hivex-perl
+      - wimtools
+    write_files:
+    - content: |
+        cd /distrobuilder
+        make
+        /root/go/bin/distrobuilder repack-windows /Win* LXD-Windows.iso
+      path: /usr/local/bin/create
+      permissions: '0777'
+    runcmd:
+      - cd git clone https://github.com/lxc/distrobuilder
+      - mount -t 9p config /mnt && cd /mnt && ./install.sh
+      - systemctl start lxd-agent
