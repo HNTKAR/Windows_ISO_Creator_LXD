@@ -24,12 +24,13 @@ config:
       - wimtools
     write_files:
     - content: |
+        #!/bin/bash
         cd /distrobuilder
         make
-        /root/go/bin/distrobuilder repack-windows /Win* LXD-Windows.iso
+        /root/go/bin/distrobuilder repack-windows /Win* /LXD-Windows.iso
       path: /usr/local/bin/create
       permissions: '0777'
     runcmd:
-      - cd git clone https://github.com/lxc/distrobuilder
+      - git clone https://github.com/lxc/distrobuilder
       - mount -t 9p config /mnt && cd /mnt && ./install.sh
       - systemctl start lxd-agent
