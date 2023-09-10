@@ -1,6 +1,8 @@
 profiles:
   - develop-net
 config:
+  limits.cpu: '8'
+  limits.memory: 16GiB
   cloud-init.user-data: |
     #cloud-config
     package_upgrade: true
