@@ -1,5 +1,11 @@
 profiles:
   - develop-net
+devices:
+  root:
+    path: /
+    pool: pool
+    size: 32GB
+    type: disk
 config:
   limits.cpu: '8'
   limits.memory: 16GiB

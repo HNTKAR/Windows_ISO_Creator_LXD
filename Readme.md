@@ -10,6 +10,12 @@ lxc file push -p --mode "0777" $ISO CreateISO/
 lxc exec CreateISO create
 ```
 
+# Windows Virtual Machineの作成
+```sh
+# ストレージ，メモリ，コア数の設定を忘れないこと
+lxc config device add WinVM vtpm tpm
+```
+
 # 各種PATH
 - distrobuilder  
   `/distrobuilder`
